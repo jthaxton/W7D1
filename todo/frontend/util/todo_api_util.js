@@ -9,6 +9,23 @@ export const createTodo = (todo) => {
   return $.ajax({
     url: '/api/todos',
     method: 'POST',
-    data: {todo}
+    data: {todo},
+  });
+};
+
+
+export const updateTodo = (todo) => {
+  return $.ajax({
+    url: `/api/todos/${todo.id}`,
+    method: 'PATCH',
+    data: {id: todo.id, todo: {done: !todo.done}},
+  });
+};
+
+export const deleteTodo = (todo) => {
+  return $.ajax({
+    url: `/api/todos/${todo.id}`,
+    method: 'DELETE',
+    data: {id: todo.id},
   });
 };

@@ -2,6 +2,8 @@ import * as APIUtil from '../util/todo_api_util';
 import {receiveErrors} from './error_actions';
 export const RECEIVE_TODOS = "RECEIVE_TODOS";
 export const RECEIVE_TODO = "RECEIVE_TODO";
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const UPDATE_TODO = 'UPDATE_TODO';
 
 export function receiveTodos (todos) {
   return {
@@ -33,6 +35,34 @@ export function createTodo(todo) {
 
 }
 
-export function removeTodo(todo) {
-  
+export function removeTodo(id) {
+  return {
+    type: 'REMOVE_TODO',
+    id,
+  };
+}
+
+export function updateTodo(todo) {
+  return {
+    type: 'UPDATE_TODO',
+    todo,
+  };
+}
+
+export function editTodo(todo) {
+  return function(dispatch) {
+    return APIUtil.updateTodo(todo).then(
+      res => dispatch(updateTodo(res)),
+      err => dispatch(receiveErrors(err.responseJSON))
+    );
+  };
+}
+
+export function deleteTodo(todo) {
+  return function(dispatch) {
+    return APIUtil.deleteTodo(todo).then(
+      res => dispatch(removeTodo(res.id)),
+      err => dispatch(receiveErrors(err.responseJSON))
+    );
+  };
 }

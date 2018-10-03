@@ -28,8 +28,9 @@ class Api::TodosController < ApplicationController
 
   def destroy
     @todo = Todolist.find_by_id(params[:id])
+    id = @todo.id
     @todo.delete
-    render json: { "message": "This is has been deleted" }
+    render json: { id: id }
   end
 
   private

@@ -14,7 +14,9 @@ export default class ToDoList extends React.Component{
           <ToDoForm receiveTodo={this.props.receiveTodo} createTodo={this.props.createTodo}
             errors={this.props.errors}/>
           <ul>
-            {this.props.todos.map(todo => <ToDoListItem key={todo.id} todo={todo}/>)}
+            {this.props.todos.map(todo => <ToDoListItem key={todo.id} todo={todo} removeTodo={this.props.removeTodo} updateTodo={this.props.updateTodo}
+            editTodo={this.props.editTodo} deleteTodo={this.props.deleteTodo}
+            />)}
           </ul>
       </div>
     );
